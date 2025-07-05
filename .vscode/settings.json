@@ -1,0 +1,10 @@
+{
+  "go.formatTool": "gofmt",
+  "editor.formatOnSave": true,
+  "[go]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always"
+    }
+  }
+}
