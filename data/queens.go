@@ -16,7 +16,7 @@ type Queen struct {
 
 type Look struct {
 	Caption  string `json:"caption"`
-	ImageURL string `json:"image_url"`
+	ImageURL string `json:"imageUrl"`
 	Season   Season `json:"season"`
 }
 
