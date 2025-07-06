@@ -10,7 +10,8 @@ func rootHandler(ctx iris.Context) {
 }
 
 func listQueensHandler(ctx iris.Context) {
-	ctx.JSON(data.Queens)
+	ctx.Header("Content-Type", "application/json")
+	ctx.Write(data.QueensJSON)
 }
 
 func getQueenHandler(ctx iris.Context) {

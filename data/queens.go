@@ -28,13 +28,13 @@ type Season struct {
 var (
 	// eventually this data should probably be fetched from a database or blob storage
 	//go:embed queens.json
-	queensData []byte
+	QueensJSON []byte
 
 	Queens []Queen
 )
 
 func init() {
-	err := json.Unmarshal(queensData, &Queens)
+	err := json.Unmarshal(QueensJSON, &Queens)
 	if err != nil {
 		log.Fatal(err)
 	}
