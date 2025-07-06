@@ -11,7 +11,7 @@ func rootHandler(ctx iris.Context) {
 
 func listQueensHandler(ctx iris.Context) {
 	ctx.Header("Content-Type", "application/json")
-	ctx.Write(data.QueensJSON)
+	ctx.Write(data.GetQueensBytes())
 }
 
 func getQueenHandler(ctx iris.Context) {

@@ -28,23 +28,26 @@ type Season struct {
 var (
 	// eventually this data should probably be fetched from a database or blob storage
 	//go:embed queens.json
-	QueensJSON []byte
-
-	Queens []Queen
+	queensJSON []byte
+	queens     []Queen
 )
 
 func init() {
-	err := json.Unmarshal(QueensJSON, &Queens)
+	err := json.Unmarshal(queensJSON, &queens)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
-func GetQueen(id string) (*Queen, error) {
-	for _, queen := range Queens {
+func GetQueen(id string) (Queen, error) {
+	for _, queen := range queens {
 		if queen.ID == id {
-			return &queen, nil
+			return queen, nil
 		}
 	}
-	return nil, fmt.Errorf("queen with id %s not found", id)
+	return Queen{}, fmt.Errorf("queen with id %s not found", id)
+}
+
+func GetQueensBytes() []byte {
+	return queensJSON
 }
