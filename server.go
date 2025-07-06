@@ -1,28 +1,34 @@
 package main
 
 import (
-	"log"
-	"net/http"
-	"time"
+	"github.com/kataras/iris/v12"
+	"github.com/mariannefeng/drex-backend/data"
 )
 
-func timeHandler(w http.ResponseWriter, r *http.Request) {
-	tm := time.Now().Format(time.RFC1123)
-	w.Write([]byte("The time is: " + tm))
-
+func rootHandler(ctx iris.Context) {
+	ctx.WriteString("drex-backend")
 }
 
-func queensListHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	w.Write([]byte("[]"))
+func listQueensHandler(ctx iris.Context) {
+	ctx.JSON(data.Queens)
+}
+
+func getQueenHandler(ctx iris.Context) {
+	id := ctx.Params().Get("id")
+	queen, err := data.GetQueen(id)
+	if err != nil {
+		ctx.StopWithError(iris.StatusNotFound, err)
+		return
+	}
+	ctx.JSON(queen)
 }
 
 func main() {
-	mux := http.NewServeMux()
-	th := http.HandlerFunc(timeHandler)
+	app := iris.New()
 
-	mux.Handle("/", th)
-	mux.Handle("/queens", http.HandlerFunc(queensListHandler))
-	log.Print("Listening on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", mux))
+	app.Get("/", rootHandler)
+	app.Get("/queens", listQueensHandler)
+	app.Get("/queens/{id:string}", getQueenHandler)
+
+	app.Listen(":8080")
 }
