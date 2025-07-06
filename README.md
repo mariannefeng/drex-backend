@@ -1,4 +1,4 @@
 ```
-GET /queens
-GET /queens/:id
+GET /api/queens
+GET /api/queens/:id
 ```

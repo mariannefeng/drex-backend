@@ -6,7 +6,17 @@ import (
 )
 
 func rootHandler(ctx iris.Context) {
-	ctx.WriteString("drex-backend")
+	ctx.Header("Content-Type", "text/html")
+	ctx.WriteString(`
+	<html>
+		<body>
+			<p>drex-backend</p>
+			<p>
+				<a href="/api/queens">GET /api/queens</a>
+			</p>
+		</body>
+	</html>
+	`)
 }
 
 func listQueensHandler(ctx iris.Context) {
@@ -28,8 +38,8 @@ func main() {
 	app := iris.New()
 
 	app.Get("/", rootHandler)
-	app.Get("/queens", listQueensHandler)
-	app.Get("/queens/{id:string}", getQueenHandler)
+	app.Get("/api/queens", listQueensHandler)
+	app.Get("/api/queens/{id:string}", getQueenHandler)
 
 	app.Listen(":8080")
 }
