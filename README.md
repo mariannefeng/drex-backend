@@ -1,4 +1,2 @@
-```
-GET /api/queens
-GET /api/queens/:id
-```
+/server - go backend
+/scraper - scrape data from rpdr fandom wiki

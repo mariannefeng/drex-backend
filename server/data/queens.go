@@ -8,10 +8,11 @@ import (
 )
 
 type Queen struct {
-	ID          string `json:"id"`
-	Name        string `json:"name"`
-	ProfileLink string `json:"profileLink"`
-	Looks       []Look `json:"looks"`
+	ID              string `json:"id"`
+	Name            string `json:"name"`
+	ProfileImageUrl string `json:"profileImageUrl"`
+	ProfileLink     string `json:"profileLink"`
+	Looks           []Look `json:"looks"`
 }
 
 type Look struct {
@@ -23,6 +24,12 @@ type Look struct {
 type Season struct {
 	Show   string `json:"show"`
 	Season int    `json:"season"`
+}
+
+type QueenSummary struct {
+	ID              string `json:"id"`
+	Name            string `json:"name"`
+	ProfileImageUrl string `json:"profileImageUrl"`
 }
 
 var (
@@ -46,6 +53,20 @@ func GetQueen(id string) (Queen, error) {
 		}
 	}
 	return Queen{}, fmt.Errorf("queen with id %s not found", id)
+}
+
+func GetQueens() ([]*QueenSummary, error) {
+	queensSummary := make([]*QueenSummary, len(queens))
+
+	for i, queen := range queens {
+		queensSummary[i] = &QueenSummary{
+			ID:              queen.ID,
+			Name:            queen.Name,
+			ProfileImageUrl: queen.ProfileImageUrl,
+		}
+	}
+
+	return queensSummary, nil
 }
 
 func GetQueensBytes() []byte {
